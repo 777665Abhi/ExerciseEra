@@ -148,7 +148,7 @@ class MyCourseScreen extends GetView<MyCourseController> {
         ),
       ),
       ontap: () {
-        Get.toNamed(AppRoutes.COURSEDETAIL, arguments: [
+        Get.toNamed(AppRoutes.MYCOURSEDETAIL, arguments: [
           {"courseId": '${courseData.id}'}
         ]);
       },

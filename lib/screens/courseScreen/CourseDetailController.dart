@@ -1,12 +1,7 @@
-import 'package:chewie/chewie.dart';
-import 'package:dio/dio.dart';
 import 'package:exercise_era/screens/courseScreen/CourseDataModel.dart';
-import 'package:video_player/video_player.dart';
 
 import '../../../constants/exports.dart';
 import '../../common_widgets/widgets.dart';
-import '../../network/dio/error_handling.dart';
-import '../../network/dio/interceptors.dart';
 import 'CourseVideoDetailModel.dart';
 
 class CourseDetailController extends GetxController {

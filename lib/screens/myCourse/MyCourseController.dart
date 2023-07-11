@@ -1,6 +1,5 @@
 import '../../constants/exports.dart';
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
 import 'package:exercise_era/screens/home/CoursesModel.dart';
 
 import '../../../constants/exports.dart';

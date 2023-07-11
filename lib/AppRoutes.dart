@@ -11,6 +11,8 @@ abstract class AppRoutes {
   static const VIDEOPLAYER = Paths.VIDEOPLAYER;
   static const PROFILE =Paths.PROFILE;
   static const MYCOURSE =Paths.MYCOURSE;
+  static const MYCOURSEDETAIL =Paths.MYCOURSEDETAIL;
+
 }
 
 abstract class Paths {
@@ -22,5 +24,6 @@ abstract class Paths {
   static const VIDEOPLAYER= '/VideoPlayer';
   static const PROFILE = '/profile';
   static const MYCOURSE = '/myCourse';
+  static const MYCOURSEDETAIL = '/myCourseDetail';
 
 }

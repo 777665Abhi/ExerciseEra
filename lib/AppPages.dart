@@ -7,6 +7,8 @@ import 'package:exercise_era/screens/login/LoginBinding.dart';
 import 'package:exercise_era/screens/login/LoginScreen.dart';
 import 'package:exercise_era/screens/myCourse/MyCourseBinding.dart';
 import 'package:exercise_era/screens/myCourse/MyCourseScreen.dart';
+import 'package:exercise_era/screens/myCourseDetail/MyCourseDetailBinding.dart';
+import 'package:exercise_era/screens/myCourseDetail/MyCourseDetailScreen.dart';
 import 'package:exercise_era/screens/profile/ProfileBinding.dart';
 import 'package:exercise_era/screens/profile/ProfileScreen.dart';
 import 'package:exercise_era/screens/signUp/SignUpBinding.dart';
@@ -24,6 +26,11 @@ class AppPages {
   static const HOME = AppRoutes.HOME;
 
   static final routes = [
+    GetPage(
+      name: Paths.MYCOURSEDETAIL,
+      page: () => const MyCourseDetailScreen(),
+      binding: MyCourseDetailBinding(),
+    ),
     GetPage(
       name: Paths.MYCOURSE,
       page: () => const MyCourseScreen(),

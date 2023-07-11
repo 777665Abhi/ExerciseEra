@@ -15,7 +15,12 @@ export  'package:cached_network_image/cached_network_image.dart';
 export  'package:exercise_era/common_widgets/shimmerWidget.dart';
 export 'package:shared_preferences/shared_preferences.dart';
 export 'package:flutter_rating_bar/flutter_rating_bar.dart';
+export 'package:dio/dio.dart';
+export '../../network/dio/error_handling.dart';
+export '../../network/dio/interceptors.dart';
 
+export 'package:video_player/video_player.dart';
+export 'package:chewie/chewie.dart';
 
 
 
