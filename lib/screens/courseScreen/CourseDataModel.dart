@@ -131,6 +131,7 @@ class CourseDetail {
   var userProfileImage;
   var userName;
   var avgRating;
+  var isFree;
   List<String>? learningPoints;
 
   CourseDetail(
@@ -148,7 +149,8 @@ class CourseDetail {
         this.userProfileImage,
         this.userName,
         this.avgRating,
-        this.learningPoints});
+        this.learningPoints,
+      this.isFree});
 
   CourseDetail.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -166,6 +168,7 @@ class CourseDetail {
     userName = json['userName'];
     avgRating = json['avgRating'];
     learningPoints = json['learningPoints'].cast<String>();
+    isFree=json['isFree'];
   }
 
   Map<String, dynamic> toJson() {
@@ -185,6 +188,7 @@ class CourseDetail {
     data['userName'] = this.userName;
     data['avgRating'] = this.avgRating;
     data['learningPoints'] = this.learningPoints;
+    data['isFree']= this.isFree;
     return data;
   }
 }

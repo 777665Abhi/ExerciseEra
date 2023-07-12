@@ -28,12 +28,12 @@ class CourseDetailController extends GetxController {
   }
 
   Future<void> initializePlayer(videoUrl) async {
-    videoPlayerController1 = VideoPlayerController.network(videoUrl);
-    await Future.wait([
-      videoPlayerController1!.initialize(),
-    ]);
-    update();
-    _createChewieController();
+    // videoPlayerController1 = VideoPlayerController.network(videoUrl);
+    // await Future.wait([
+    //   videoPlayerController1!.initialize(),
+    // ]);
+    // update();
+    // _createChewieController();
   }
 
   void _createChewieController() {
@@ -97,5 +97,18 @@ class CourseDetailController extends GetxController {
       }
     }
     return courseVideoModel!;
+  }
+
+  //https://account.exerciseera.com/api/course/videos/enroll
+  enrollCourse()
+  {
+
+  }
+
+  @override
+  void dispose() {
+    videoPlayerController1!.dispose();
+    chewieController!.dispose();
+    super.dispose();
   }
 }

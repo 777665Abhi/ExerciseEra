@@ -173,7 +173,8 @@ class MyCourseDetailScreen extends GetView<MyCourseDetailController> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           introCard(courseData),
-                          learnSection(courseData)
+                          learnSection(courseData),
+                          detailSection(courseData)
                         ]),
                   ));
             }
@@ -291,5 +292,19 @@ class MyCourseDetailScreen extends GetView<MyCourseDetailController> {
             );
           })
     ]);
+  }
+  detailSection(courseData)
+  {
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      sizedBox(height: 20.0),
+      commonText("Course detail",
+          fontSize: font_20, fontWeight: FontWeight.bold),
+      sizedBox(height: 10.0),
+
+      Text(courseData.data!.dataOB.description)]);
+    // return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+    //     Html(
+    //     data:  courseData.data!.courseData!.description)
+    // ]);
   }
 }
