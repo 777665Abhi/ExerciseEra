@@ -19,22 +19,25 @@ class SplashController extends GetxController {
     final SharedPreferences prefs = await _prefs;
     debugPrint('${prefs.getBool('isLogin')}');
     var condition = prefs.getBool('isLogin');
-    if (condition == null) {
-      {
-        Timer(const Duration(seconds: 3), () {
-          Get.offNamed(AppRoutes.HOME);
-        });
-      }
-    } else {
-      if (condition!) {
-        Timer(const Duration(seconds: 3), () {
-          Get.offNamed(AppRoutes.MYCOURSE);
-        });
-      } else {
-        Timer(const Duration(seconds: 3), () {
-          Get.offNamed(AppRoutes.HOME);
-        });
-      }
-    }
+    Timer(const Duration(seconds: 3), () {
+      Get.offNamed(AppRoutes.HOME);
+    });
+    // if (condition == null) {
+    //   {
+    //     Timer(const Duration(seconds: 3), () {
+    //       Get.offNamed(AppRoutes.HOME);
+    //     });
+    //   }
+    // } else {
+    //   if (condition!) {
+    //     Timer(const Duration(seconds: 3), () {
+    //       Get.offNamed(AppRoutes.MYCOURSE);
+    //     });
+    //   } else {
+    //     Timer(const Duration(seconds: 3), () {
+    //       Get.offNamed(AppRoutes.HOME);
+    //     });
+    //   }
+    // }
   }
 }

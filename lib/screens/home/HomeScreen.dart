@@ -23,7 +23,8 @@ class HomeScreen extends GetView<HomeController> {
               }
             },
             drawerScrimColor: Colors.transparent,
-            drawer: _drawer(context),
+            drawer:
+        _drawer(context),
             appBar: homeAppBar(
                 context: context,
                 title: homeStr,
@@ -54,26 +55,49 @@ class HomeScreen extends GetView<HomeController> {
                 child:
             Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Align(
-                    alignment: Alignment.topRight,
-                  child:
-                  getInkWell(
-                    widget: commonText("Login",
-                        style:TextStyle( color:Colors.blue,fontWeight: FontWeight.bold)
-
-                        // textHeight: FontWeight.bold
-                    ),
-                    ontap: () {
-                      Get.toNamed(AppRoutes.LOGIN);
-                    },
-                  )),
-                ),
+                (controller.loginCondition)?_logout():_login(),
                 _body()
               ],
             )));
       },
+    );
+  }
+
+  _login()
+  {
+   return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Align(
+          alignment: Alignment.topRight,
+          child:
+          getInkWell(
+            widget: commonText("Login",
+                style:TextStyle( color:Colors.blue,fontWeight: FontWeight.bold)
+
+              // textHeight: FontWeight.bold
+            ),
+            ontap: () {
+              Get.toNamed(AppRoutes.LOGIN);
+            },
+          )),
+    );
+  }
+
+  _logout()
+  {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Align(
+          alignment: Alignment.topRight,
+          child:
+          getInkWell(
+            widget: commonText("Logout",
+                style:TextStyle( color:Colors.blue,fontWeight: FontWeight.bold)
+            ),
+            ontap: () {
+              controller.logOutApiCall();
+            },
+          )),
     );
   }
 
@@ -191,24 +215,61 @@ class HomeScreen extends GetView<HomeController> {
         return NavigationDrawer(
           onDestinationSelected: controller.clickOnDrawerItem,
           selectedIndex: controller.selectedDrawerIndex.value,
-          children: <Widget>[
-            setPadding(
-              leftPadding: margin_28,
-              topPadding: margin_16,
-              rightPadding: margin_16,
-              bottomPadding: margin_16,
-            ),
-            _drawerItem(0),
-            _drawerItem(1),
-            _drawerItem(2),
-            _drawerItem(3),
-            divider(),
-          ],
+          children:
+            controller.loginCondition?login():nonLogin()
+          // <Widget>[
+          //   setPadding(
+          //     leftPadding: margin_28,
+          //     topPadding: margin_16,
+          //     rightPadding: margin_16,
+          //     bottomPadding: margin_16,
+          //   ),
+          //   _drawerItem(0),
+          //   _drawerItem(1),
+          //   _drawerItem(2),
+          //   divider(),
+          // ],
         );
       },
     );
   }
 
+  List<Widget> nonLogin()
+  {
+    return
+      <Widget>[
+        setPadding(
+          leftPadding: margin_28,
+          topPadding: margin_16,
+          rightPadding: margin_16,
+          bottomPadding: margin_16,
+        ),
+        _drawerItem(0),
+        _drawerItem(1),
+        _drawerItem(2),
+        divider(),
+      ];
+  }
+
+  List<Widget> login()
+  {
+    return
+      <Widget>[
+        setPadding(
+          leftPadding: margin_28,
+          topPadding: margin_16,
+          rightPadding: margin_16,
+          bottomPadding: margin_16,
+        ),
+        _drawerItem(0),
+        _drawerItem(1),
+        _drawerItem(2),
+        _drawerItem(3),
+        _drawerItem(4),
+        _drawerItem(5),
+
+      ];
+  }
 
   _drawerItem(index) {
     return NavigationDrawerDestination(

@@ -99,9 +99,7 @@ class MyCourseDetailScreen extends GetView<MyCourseDetailController> {
                   controller.update();
                 },
                 child: commonText("Curriculum",
-                    fontSize: font_20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.orangeAccent)),
+                    fontSize: font_20, color: Colors.orangeAccent)),
             sizedBox(width: 20.0),
             InkWell(
               onTap: () {
@@ -109,13 +107,13 @@ class MyCourseDetailScreen extends GetView<MyCourseDetailController> {
                 controller.checkCourseDetail = true;
                 controller.update();
               },
-              child: commonText("Detail",
-                  fontSize: font_20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey),
+              child:
+                  commonText("Detail", fontSize: font_20, color: Colors.grey),
             )
           ]),
-          Divider(color: Colors.grey,),
+          Divider(
+            color: Colors.grey,
+          ),
           SizedBox(height: 10),
           showOrHideCourseList(controller.checkCourseList, list),
           showOrHideCourseDetail(controller.checkCourseDetail)
@@ -153,51 +151,43 @@ class MyCourseDetailScreen extends GetView<MyCourseDetailController> {
   }
 
   showOrHideCourseDetail(visibility) {
-    // return Visibility(
-    //     visible: visibility,
-    //     child: commonText("courseDetail title",
-    //         fontSize: font_20, fontWeight: FontWeight.bold));
-    return
-      Visibility(
-            visible: visibility,
-            child:      FutureBuilder(
-        future: controller.futureCourseDetailModel,
-        builder: (_, courseData) {
-          if (courseData.connectionState == ConnectionState.done) {
-            if (courseData.hasData) {
-              return SingleChildScrollView(
-                  physics: const ScrollPhysics(),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          introCard(courseData),
-                          learnSection(courseData),
-                          detailSection(courseData)
-                        ]),
-                  ));
-            }
-          }
-          if (courseData.hasError) {
-            return commonText("${courseData.error}");
-          }
-          if (courseData.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: loader(),
-            );
-          }
-          if (courseData.connectionState == ConnectionState.active) {
-            return Center(
-              child: loader(),
-            );
-          }
-          return commonText("No data found");
-        }));
-
+    return Visibility(
+        visible: visibility,
+        child: FutureBuilder(
+            future: controller.futureCourseDetailModel,
+            builder: (_, courseData) {
+              if (courseData.connectionState == ConnectionState.done) {
+                if (courseData.hasData) {
+                  return SingleChildScrollView(
+                      physics: const ScrollPhysics(),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              introCard(courseData),
+                              learnSection(courseData),
+                              detailSection(courseData)
+                            ]),
+                      ));
+                }
+              }
+              if (courseData.hasError) {
+                return commonText("${courseData.error}");
+              }
+              if (courseData.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: loader(),
+                );
+              }
+              if (courseData.connectionState == ConnectionState.active) {
+                return Center(
+                  child: loader(),
+                );
+              }
+              return commonText("No data found");
+            }));
   }
-
-
 
   sectionVideoList(list) {
     return ListView.builder(
@@ -228,9 +218,12 @@ class MyCourseDetailScreen extends GetView<MyCourseDetailController> {
                               Icons.play_circle,
                               color: Colors.orangeAccent,
                             ),
-                            Expanded (
-                              child: Text(list[index].title, overflow: TextOverflow.ellipsis,style: new TextStyle(fontSize:font_14,)
-                              ),
+                            Expanded(
+                              child: Text(list[index].title,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: new TextStyle(
+                                    fontSize: font_14,
+                                  )),
                             ),
                           ],
                         ),
@@ -258,12 +251,10 @@ class MyCourseDetailScreen extends GetView<MyCourseDetailController> {
         Row(
           children: [
             Icon(Icons.all_inbox, color: Colors.orange),
-            commonText(courseData.data!.dataOB.levelString,
-                fontSize: font_16),
+            commonText(courseData.data!.dataOB.levelString, fontSize: font_16),
             sizedBox(width: 10.0),
             Icon(Icons.all_inbox, color: Colors.orange),
-            commonText(
-                "${courseData.data!.dataOB.sectionCount} Section",
+            commonText("${courseData.data!.dataOB.sectionCount} Section",
                 fontSize: font_16),
             sizedBox(width: 10.0),
             Icon(Icons.language, color: Colors.orange),
@@ -274,10 +265,10 @@ class MyCourseDetailScreen extends GetView<MyCourseDetailController> {
       ],
     );
   }
+
   learnSection(courseData) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       sizedBox(height: 30.0),
-
       commonText("What you'll learn",
           fontSize: font_20, fontWeight: FontWeight.bold),
       ListView.builder(
@@ -286,22 +277,24 @@ class MyCourseDetailScreen extends GetView<MyCourseDetailController> {
           itemCount: courseData.data!.dataOB.learningPoints!.length,
           itemBuilder: (BuildContext context, int index) {
             return ListTile(
-              leading: Icon(Icons.add_circle,color: Colors.orangeAccent,),
-              title: Text(
-                  '${courseData.data!.dataOB.learningPoints![index]}'),
+              leading: Icon(
+                Icons.add_circle,
+                color: Colors.orangeAccent,
+              ),
+              title: Text('${courseData.data!.dataOB.learningPoints![index]}'),
             );
           })
     ]);
   }
-  detailSection(courseData)
-  {
+
+  detailSection(courseData) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       sizedBox(height: 20.0),
       commonText("Course detail",
           fontSize: font_20, fontWeight: FontWeight.bold),
       sizedBox(height: 10.0),
-
-      Text(courseData.data!.dataOB.description)]);
+      Text(courseData.data!.dataOB.description)
+    ]);
     // return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
     //     Html(
     //     data:  courseData.data!.courseData!.description)

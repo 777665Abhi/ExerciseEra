@@ -21,23 +21,108 @@ class ProfileScreen extends GetView<ProfileController> {
   }
 
   _body() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          generalIntro()
-        ],
-      ),
-    );
+    return FutureBuilder(
+        future: controller.futureProfileModel,
+        builder: (_, profileData) {
+          if (profileData.connectionState == ConnectionState.done) {
+            if (profileData.hasData) {
+              return SingleChildScrollView(
+                  physics: const ScrollPhysics(),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          generalIntro(profileData!.data),
+                        ]),
+                  ));
+            }
+          }
+          if (profileData.hasError) {
+            return commonText("${profileData.error}");
+          }
+          if (profileData.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: loader(),
+            );
+          }
+          if (profileData.connectionState == ConnectionState.active) {
+            return Center(
+              child: loader(),
+            );
+          }
+          return commonText("No data found");
+        });
   }
 
-  generalIntro()
-  {
-    return Row( children: [
-      CircleAvatar(
-        backgroundImage:
-        NetworkImage('https://picsum.photos/id/237/200/300'),
-     radius: 35, )
-    ],);
+  generalIntro(profileData) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        CircleAvatar(
+          backgroundImage: NetworkImage(profileData.data[0]!.profileImage),
+          radius: 55,
+        ),
+        sizedBox(height: 18.0),
+        TextField(
+            decoration: InputDecoration(
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(width: 1, color: Colors.greenAccent),
+              ),
+              labelText: 'First Name',
+            ),
+            focusNode: FocusNode(),
+            readOnly: true,
+            controller: controller.firstNameController),
+        sizedBox(height: 10.0),
+        TextField(
+            decoration: InputDecoration(
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(width: 1, color: Colors.greenAccent),
+              ),
+              labelText: 'Last Name',
+            ),
+            focusNode: FocusNode(),
+            readOnly: true,
+            controller: controller.lastNameController),
+
+        sizedBox(height: 10.0),
+        TextField(
+            decoration: InputDecoration(
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(width: 1, color: Colors.greenAccent),
+              ),
+              labelText: 'Mobile',
+            ),
+            focusNode: FocusNode(),
+            readOnly: true,
+            controller: controller.mobileController),
+
+        sizedBox(height: 10.0),
+        TextField(
+            decoration: InputDecoration(
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(width: 1, color: Colors.greenAccent),
+              ),
+              labelText: 'Email',
+            ),
+            focusNode: FocusNode(),
+            readOnly: true,
+            controller: controller.emailController),
+
+        sizedBox(height: 10.0),
+        TextField(
+            decoration: InputDecoration(
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(width: 1, color: Colors.greenAccent),
+              ),
+              labelText: 'Account number',
+            ),
+            focusNode: FocusNode(),
+            readOnly: true,
+            controller: controller.accController),
+      ],
+    );
   }
 }

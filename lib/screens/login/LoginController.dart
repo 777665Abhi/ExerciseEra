@@ -47,7 +47,7 @@ class LoginController extends GetxController {
         await prefs!.setBool('isLogin', true);
 
         toast(message: 'Successfully login');
-        Get.offNamed(AppRoutes.MYCOURSE);
+        Get.offNamed(AppRoutes.HOME);
       }
     } catch (e) {
       if (e is DioError) {

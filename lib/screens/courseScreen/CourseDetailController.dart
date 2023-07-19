@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:exercise_era/screens/courseScreen/CourseDataModel.dart';
 
 import '../../../constants/exports.dart';
 import '../../common_widgets/widgets.dart';
 import 'CourseVideoDetailModel.dart';
+import 'dart:convert';
 
 class CourseDetailController extends GetxController {
   VideoPlayerController? videoPlayerController1;
@@ -19,10 +22,11 @@ class CourseDetailController extends GetxController {
   int? bufferDelay;
   dynamic argumentData = Get.arguments;
 
-  var courseId="";
+  var courseId = "";
+
   @override
   void onInit() {
-    courseId=argumentData[0]['courseId'];
+    courseId = argumentData[0]['courseId'];
     futureCourseDetailModel = getCourseDetail(courseId);
     super.onInit();
   }
@@ -51,7 +55,7 @@ class CourseDetailController extends GetxController {
     try {
       var url =
           'https://account.exerciseera.com/request/getVideoCourseDetailById/$courseId';
-          // 'https://account.exerciseera.com/request/getVideoCourseDetailById/97d805935c124f219805935c125f21d6';
+      // 'https://account.exerciseera.com/request/getVideoCourseDetailById/97d805935c124f219805935c125f21d6';
       dio.interceptors.add(LoggingInterceptor());
 
       Response response = await dio.get(url);
@@ -100,9 +104,33 @@ class CourseDetailController extends GetxController {
   }
 
   //https://account.exerciseera.com/api/course/videos/enroll
-  enrollCourse()
-  {
+  Future<CourseVideoDetailModel> enrollCourse(courseId) async {
+    try {
+      var url = 'https://account.exerciseera.com/api/course/videos/enroll';
+      dio.interceptors.add(LoggingInterceptor());
+      var header = {"courseId": courseId};
+      final jsonString = json.encode(header);
+      final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
+      dio.options.headers['content-Type'] = 'application/json';
+      dio.options.headers["headers"] =headers;
+      final response = await dio.post(url,data: jsonString);
 
+      // Response response = await dio.get(url);
+      if (response.statusCode == 200) {
+        courseVideoModel = CourseVideoDetailModel.fromJson(response.data);
+      }
+    } catch (e) {
+      if (e is DioError) {
+        DioException.fromDioError(e);
+        courseVideoErrorMessage.value = DioException.errorMessage!;
+        courseVideoErrorMessage.value =
+            DioException.handleStatusCode(e.response!.statusCode);
+        toast(message: courseVideoErrorMessage.value);
+      } else {
+        toast(message: "Something went wrong");
+      }
+    }
+    return courseVideoModel!;
   }
 
   @override

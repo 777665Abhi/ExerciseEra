@@ -17,22 +17,15 @@ class MyCourseScreen extends GetView<MyCourseController> {
         return Scaffold(
             backgroundColor: Colors.white,
             key: controller.scaffoldKey,
-            onDrawerChanged: (isOpen) {
-              if (isOpen == false) {
-                controller.closeDrawer();
-              }
-            },
-            drawerScrimColor: Colors.transparent,
-            drawer: _drawer(context),
+
             appBar: homeAppBar(
                 context: context,
                 title: myCourseStr,
                 leading: getInkWell(
                     ontap: () {
-                      controller.openDrawer();
+                    Get.back();
                     },
-                    widget: controller.isDrawerOpen.value
-                        ? Platform.isAndroid
+                    widget:  Platform.isAndroid
                             ? const Icon(
                                 Icons.arrow_back,
                                 color: appBarTitleTextLabelColor,
@@ -41,33 +34,12 @@ class MyCourseScreen extends GetView<MyCourseController> {
                                 Icons.arrow_back_ios,
                                 color: appBarTitleTextLabelColor,
                               )
-                        : const Icon(
-                            Icons.menu,
-                            color: appBarTitleTextLabelColor,
-                          ))),
+                       )),
 
-            // persistentFooterButtons: [
-            //   _startAssayButton(),
-            // ],
+
             body: SingleChildScrollView(
                 child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Align(
-                      alignment: Alignment.topRight,
-                      child: getInkWell(
-                        widget: commonText("Logout",
-                            style: TextStyle(
-                                color: Colors.blue, fontWeight: FontWeight.bold)
-
-                            // textHeight: FontWeight.bold
-                            ),
-                        ontap: () {
-                          _logoutDialog();
-                        },
-                      )),
-                ),
                 _body()
               ],
             )));
@@ -155,43 +127,6 @@ class MyCourseScreen extends GetView<MyCourseController> {
     );
   }
 
-  _drawer(context) {
-    return GetBuilder<MyCourseController>(
-      id: "drawer",
-      builder: (_) {
-        return NavigationDrawer(
-          onDestinationSelected: clickOnDrawerItem,
-          selectedIndex: controller.selectedDrawerIndex.value,
-          children: <Widget>[
-            setPadding(
-              leftPadding: margin_28,
-              topPadding: margin_16,
-              rightPadding: margin_16,
-              bottomPadding: margin_16,
-            ),
-            _drawerItem(0),
-            _drawerItem(1),
-            _drawerItem(2),
-            _drawerItem(3),
-            divider(),
-            _drawerItem(4),
-          ],
-        );
-      },
-    );
-  }
-
-  _drawerItem(index) {
-    return NavigationDrawerDestination(
-        icon: controller.selectedDrawerIndex.value == index
-            ? controller.iconList[index]
-            : controller.unselectedIconList[index],
-        label: commonText(controller.drawerItems[index],
-            fontSize: font_14,
-            color: floatingTextColor,
-            fontWeight: FontWeight.w600));
-  }
-
   historyItemView(scanObj) {
     return getInkWell(
         widget: Container(
@@ -213,70 +148,6 @@ class MyCourseScreen extends GetView<MyCourseController> {
         ontap: () {
           // Get.toNamed(AppRoutes.SCANDETAIL);
         });
-  }
-
-  clickOnDrawerItem(index) {
-    controller.selectedDrawerIndex.value = index;
-    switch (index) {
-      case 3:
-        {
-          Get.toNamed(AppRoutes.PROFILE);
-        }
-        break;
-
-      case 4:
-        {
-          _logoutDialog();
-        }
-        break;
-    }
-    controller.update(["drawer"]);
-  }
-
-  _logoutDialog(){
-    return    commonDialogs(
-        radius: radius_20,
-        body:
-        Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  padding: EdgeInsets.all(margin_10),
-                  decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: primaryColor
-                  ),
-                  child:const Icon(Icons.question_mark,color: Colors.white,),
-                ),
-                sizedBox(width: margin_20),
-                commonText("Log out",fontWeight: FontWeight.w600,color:appBarTitleTextLabelColor,textHeight: 1.4,align: TextAlign.center,fontSize: font_16),
-              ],
-            ),
-            sizedBox(height: margin_20),
-            commonText("Are you sure,do you want to logout?",fontWeight: FontWeight.w400,color:subtitleColor,textHeight: 1.4,align: TextAlign.center),
-            sizedBox(height: margin_20),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton(onPressed: (){
-                  Get.back();
-                },
-                    child: commonText("No",color: primaryColor,fontWeight: FontWeight.w600)
-                ),
-
-                TextButton(onPressed: (){
-                  controller.logOutApiCall();
-                },
-                    child: commonText("Yes",color: primaryColor,fontWeight: FontWeight.w600)
-                ),
-              ],
-            )
-          ],
-        )
-    );
   }
 
 }
