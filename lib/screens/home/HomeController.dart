@@ -7,6 +7,7 @@ import '../../common_widgets/widgets.dart';
 import '../../network/dio/HttpService.dart';
 import '../../network/dio/error_handling.dart';
 import '../../network/dio/interceptors.dart';
+import 'DietModel.dart';
 
 class HomeController extends GetxController {
   final dio = Dio();
@@ -15,9 +16,16 @@ class HomeController extends GetxController {
   GlobalKey<ScaffoldState>? scaffoldKey;
   CoursesModel? coursesModel;
   Future<CoursesModel>? futureCourseModel;
+  DietModel? dietModel;
+  Future<DietModel>? futureDietModel;
   var loginCondition=false;
   var courseErrorMessage = "".obs;
   var isDrawerOpen = false.obs;
+  var dropdownValue="Courses";
+  List<String> dropdownList = [
+   "Courses",
+    "Diet Plans"
+  ];
   var drawerItems = [
     homeStr,
     diet,
@@ -50,9 +58,19 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     scaffoldKey = GlobalKey<ScaffoldState>();
+    courseApi();
+    dietApi();
+    super.onInit();
+  }
+
+  courseApi()
+  {
     futureCourseModel = courseApiCall();
 
-    super.onInit();
+  }
+  dietApi()
+  {
+    futureDietModel = dietPlansApiCall();
   }
 
   appFlow() async {
@@ -86,6 +104,29 @@ class HomeController extends GetxController {
       }
     }
     return coursesModel!;
+  }
+
+  Future<DietModel> dietPlansApiCall() async {
+    try {
+      dio.interceptors.add(LoggingInterceptor());
+      var url ="https://account.exerciseera.com/request/search/dietPlanningChart?name=&min=&max=&cat=&gender=";
+
+      Response response = await dio.get(url);
+      if (response.statusCode == 200) {
+        dietModel = DietModel.fromJson(response.data);
+      }
+    } catch (e) {
+      if (e is DioError) {
+        DioException.fromDioError(e);
+        courseErrorMessage.value = DioException.errorMessage!;
+        courseErrorMessage.value =
+            DioException.handleStatusCode(e.response!.statusCode);
+        toast(message: courseErrorMessage.value);
+      } else {
+        toast(message: "Something went wrong");
+      }
+    }
+    return dietModel!;
   }
 
   clickOnDrawerItem(index) {
