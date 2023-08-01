@@ -12,6 +12,9 @@ abstract class AppRoutes {
   static const PROFILE =Paths.PROFILE;
   static const MYCOURSE =Paths.MYCOURSE;
   static const MYCOURSEDETAIL =Paths.MYCOURSEDETAIL;
+  static const DIETDETAIL =Paths.DIETDETAIL;
+  static const MYDIET =Paths.MYDIET;
+  static const MYDIETDETAIL =Paths.MYDIETDETAIL;
 
 }
 
@@ -25,5 +28,8 @@ abstract class Paths {
   static const PROFILE = '/profile';
   static const MYCOURSE = '/myCourse';
   static const MYCOURSEDETAIL = '/myCourseDetail';
+  static const DIETDETAIL = '/dietPlan';
+  static const MYDIET = '/myDiet';
+  static const MYDIETDETAIL = '/myDietDetail';
 
 }

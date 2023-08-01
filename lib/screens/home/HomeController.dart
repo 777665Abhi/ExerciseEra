@@ -18,14 +18,11 @@ class HomeController extends GetxController {
   Future<CoursesModel>? futureCourseModel;
   DietModel? dietModel;
   Future<DietModel>? futureDietModel;
-  var loginCondition=false;
+  var loginCondition = false;
   var courseErrorMessage = "".obs;
   var isDrawerOpen = false.obs;
-  var dropdownValue="Courses";
-  List<String> dropdownList = [
-   "Courses",
-    "Diet Plans"
-  ];
+  var dropdownValue = "Courses";
+  List<String> dropdownList = ["Courses", "Diet Plans"];
   var drawerItems = [
     homeStr,
     diet,
@@ -63,13 +60,11 @@ class HomeController extends GetxController {
     super.onInit();
   }
 
-  courseApi()
-  {
+  courseApi() {
     futureCourseModel = courseApiCall();
-
   }
-  dietApi()
-  {
+
+  dietApi() {
     futureDietModel = dietPlansApiCall();
   }
 
@@ -109,7 +104,8 @@ class HomeController extends GetxController {
   Future<DietModel> dietPlansApiCall() async {
     try {
       dio.interceptors.add(LoggingInterceptor());
-      var url ="https://account.exerciseera.com/request/search/dietPlanningChart?name=&min=&max=&cat=&gender=";
+      var url =
+          "https://account.exerciseera.com/request/search/dietPlanningChart?name=&min=&max=&cat=&gender=";
 
       Response response = await dio.get(url);
       if (response.statusCode == 200) {
@@ -137,6 +133,12 @@ class HomeController extends GetxController {
           Get.toNamed(AppRoutes.HOME);
         }
         break;
+      case 1:
+        {
+          Get.toNamed(AppRoutes.MYDIET);
+        }
+        break;
+
       case 3:
         {
           Get.toNamed(AppRoutes.MYCOURSE);
@@ -169,10 +171,10 @@ class HomeController extends GetxController {
     update();
   }
 
-  logOutApiCall()  async {
+  logOutApiCall() async {
     final SharedPreferences prefs = await _prefs;
     await prefs.remove("token");
-    await prefs!.setBool('isLogin',false);
+    await prefs!.setBool('isLogin', false);
     Get.offNamed(AppRoutes.SPLASHSCREEN);
   }
 

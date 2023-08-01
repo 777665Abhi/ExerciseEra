@@ -98,7 +98,7 @@ class HomeScreen extends GetView<HomeController> {
 
   _spinner() {
     return Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: EdgeInsets.symmetric(horizontal: 30.0,vertical: 10),
         child:
         Center(
           child: Container(
@@ -349,10 +349,9 @@ class HomeScreen extends GetView<HomeController> {
         ),
       ),
       ontap: () {
-        toast(message: "tap performed");
-        // Get.toNamed(AppRoutes.COURSEDETAIL, arguments: [
-        //   {"courseId": '${courseData.id}'}
-        // ]);
+        Get.toNamed(AppRoutes.DIETDETAIL, arguments: [
+          {"dietId": '${dietData.id}'}
+        ]);
       },
     );
   }

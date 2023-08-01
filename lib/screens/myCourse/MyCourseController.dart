@@ -60,8 +60,6 @@ class MyCourseController extends GetxController {
       dio.interceptors.add(LoggingInterceptor());
       var url = "https://account.exerciseera.com/api/course/videos/mylearning/getCourses";
       var token =await prefs!.get('token');
-
-      // var token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2VtYWlsIjoicHJhYmhqb3QwMDA5MkBnbWFpbC5jb20iLCJ1c2VyX2ZuYW1lIjpudWxsLCJ1c2VyX25hbWUiOiJwcmFiaGpvdDAwMDkyQGdtYWlsLmNvbSIsImlzcyI6IkxvY2FsIiwidXNlcl9sbmFtZSI6bnVsbCwiY2xpZW50X2lkIjoiY2xpZW50LW1vYmlsZSIsInVzZXJfdXVpZCI6bnVsbCwidXNlcl9pZCI6NzQ1LCJ1c2VyX21vYmlsZSI6bnVsbCwic2NvcGUiOlsiYWxsIl0sInVzZXJfaGllcmFyY2h5IjpudWxsLCJleHAiOjE2OTE0OTE1MTcsImp0aSI6ImFjNDNjNGFmLWE5MGMtNDNkNS1iNzU2LTQwMmQ5OTkxNTJiNyJ9.00qV-s4ysG3KcnoerzxgRe5qzF-mMl8_FtD1ED8QJ_I";
       var headers = {'Authorization': token};
       Response response = await dio.get(url,
           options: Options(
